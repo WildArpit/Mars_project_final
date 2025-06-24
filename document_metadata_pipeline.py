@@ -1,8 +1,10 @@
 import nltk
-nltk.download('punkt')
 
-from nltk.tokenize import sent_tokenize
-...
+# Ensure required NLTK data is downloaded
+try:
+    nltk.data.find("tokenizers/punkt")
+except LookupError:
+    nltk.download("punkt")
 
 import os
 import pytesseract

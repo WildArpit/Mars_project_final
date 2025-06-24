@@ -1,3 +1,5 @@
+import nltk
+nltk.download('punkt')
 import spacy
 import subprocess
 import importlib.util

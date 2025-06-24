@@ -1,3 +1,9 @@
+import nltk
+nltk.download('punkt')
+
+from nltk.tokenize import sent_tokenize
+...
+
 import os
 import pytesseract
 import fitz  # PyMuPDF

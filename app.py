@@ -1,5 +1,11 @@
 import nltk
-nltk.download('punkt')
+
+# Ensure required NLTK data is downloaded
+try:
+    nltk.data.find("tokenizers/punkt")
+except LookupError:
+    nltk.download("punkt")
+
 import spacy
 import subprocess
 import importlib.util

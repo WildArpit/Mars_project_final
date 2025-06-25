@@ -10,3 +10,4 @@ services:
     envVars:
       - key: PYTHONUNBUFFERED
         value: "true"
+        python -m nltk.downloader punkt

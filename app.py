@@ -5,7 +5,7 @@ import spacy
 import subprocess
 from document_metadata_pipeline import process_document
 
-# Auto-download spaCy model if needed
+
 def ensure_spacy_model(model_name="en_core_web_sm"):
     try:
         return spacy.load(model_name)

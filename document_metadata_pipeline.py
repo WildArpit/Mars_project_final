@@ -1,18 +1,3 @@
-import nltk
-import os
-
-# Force NLTK to use a writable directory
-NLTK_DATA_DIR = "/tmp/nltk_data"
-os.environ["NLTK_DATA"] = NLTK_DATA_DIR
-nltk.data.path.append(NLTK_DATA_DIR)
-
-# Download 'punkt' only if missing
-try:
-    nltk.data.find("tokenizers/punkt")
-except LookupError:
-    nltk.download("punkt", download_dir=NLTK_DATA_DIR)
-
-
 import os
 import pytesseract
 import fitz  # PyMuPDF
@@ -23,11 +8,13 @@ import nltk
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.tokenize import sent_tokenize
 
-# Setup
-nltk.download('punkt')
-pytesseract.pytesseract.tesseract_cmd = r"/usr/bin/tesseract"  # Adjust this if running locally on Windows
+# Ensure 'punkt' is downloaded and available
+try:
+    nltk.data.find("tokenizers/punkt")
+except LookupError:
+    nltk.download("punkt")
 
-# ---------- Document Parsing Functions ----------
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"  # Update for Windows if needed
 
 def extract_text_from_txt(file_path):
     with open(file_path, 'r', encoding='utf-8', errors='ignore') as file:
@@ -60,13 +47,11 @@ def extract_text(file_path):
         return extract_text_from_docx(file_path)
     elif ext == '.pdf':
         text = extract_text_from_pdf(file_path)
-        if len(text.strip()) < 100:  # Assume scanned if text is very short
+        if len(text.strip()) < 100:
             return extract_text_from_scanned_pdf(file_path)
         return text
     else:
         return "Unsupported file type."
-
-# ---------- Metadata Generation Functions ----------
 
 def extract_title(text):
     lines = text.split("\n")
@@ -105,8 +90,6 @@ def generate_metadata(text, nlp):
         "Keywords": list(extract_keywords(text)),
         "Named Entities": extract_named_entities(text, nlp)
     }
-
-# ---------- Master Function ----------
 
 def process_document(file_path, nlp):
     print(f"Processing file: {file_path}")

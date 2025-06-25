@@ -1,3 +1,13 @@
+import nltk
+import os
+
+# Set custom download path
+nltk_data_path = "/tmp/nltk_data"
+nltk.data.path.append(nltk_data_path)
+os.environ["NLTK_DATA"] = nltk_data_path
+
+# Force redownload to avoid corrupted version
+nltk.download("punkt", download_dir=nltk_data_path)
 import os
 import pytesseract
 import fitz  # PyMuPDF

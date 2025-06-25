@@ -1,16 +1,16 @@
 import nltk
 import os
 
-# Set custom download path
+
 nltk_data_path = "/tmp/nltk_data"
 nltk.data.path.append(nltk_data_path)
 os.environ["NLTK_DATA"] = nltk_data_path
 
-# Force redownload to avoid corrupted version
+
 nltk.download("punkt", download_dir=nltk_data_path)
 import os
 import pytesseract
-import fitz  # PyMuPDF
+import fitz 
 import docx
 from pdf2image import convert_from_path
 from PIL import Image
@@ -18,13 +18,13 @@ import nltk
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.tokenize import sent_tokenize
 
-# Ensure 'punkt' is downloaded and available
+
 try:
     nltk.data.find("tokenizers/punkt")
 except LookupError:
     nltk.download("punkt")
 
-pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"  # Update for Windows if needed
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"  
 
 def extract_text_from_txt(file_path):
     with open(file_path, 'r', encoding='utf-8', errors='ignore') as file:
